@@ -16,7 +16,7 @@ public class Sensor_2 {
             while (true) {
                 Socket clientSocket = serverSocket.accept();
 
-                // İstemciden gelen verileri okuma
+
                 DataInputStream inputStream = new DataInputStream(clientSocket.getInputStream());
                 int receivedX = inputStream.readInt();
                 int receivedY = inputStream.readInt();
