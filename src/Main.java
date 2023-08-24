@@ -1,11 +1,11 @@
 public class Main {
     public static void main(String[] args) {
         Thread sensor1Thread = new Thread(() -> {
-            Sensor_1.main(null); // Sensor başlatma
+            Sensor_1.main(null); // Sensor 1 başlatma
         });
 
         Thread sensor2Thread = new Thread(() -> {
-            Sensor_2.main(null); // Sensor başlatma
+            Sensor_2.main(null); // Sensor 2 başlatma
         });
 
 

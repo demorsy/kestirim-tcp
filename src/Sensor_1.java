@@ -27,10 +27,10 @@ public class Sensor_1 {
                 double aciDereceSensor1 = hesaplaKerterizAci(x, y, receivedX, receivedY);
                 System.out.println("Sensör 1 için hedefin kerterizi y+ ekseninden saat yönündeki açısı " + aciDereceSensor1);
 
-                // Command Base'e hesaplanan veriyi gönder
+                // Command Base'e hesaplanan veriyi gönderir
                 Socket commandBaseSocket = new Socket(serverAddress, commandBasePort);
                 DataOutputStream commandBaseOutputStream = new DataOutputStream(commandBaseSocket.getOutputStream());
-                commandBaseOutputStream.writeInt(1); //sensor1 olduğunu belli eder.
+                commandBaseOutputStream.writeInt(1); // sensor1 olduğunu belli eder.
                 commandBaseOutputStream.writeDouble(aciDereceSensor1);
                 commandBaseOutputStream.writeInt(x); // Sensörün x koordinatı
                 commandBaseOutputStream.writeInt(y); // Sensörün y koordinatı

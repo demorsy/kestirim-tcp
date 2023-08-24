@@ -20,23 +20,20 @@ public class CommandBase {
                 while (true) {
                     Socket clientSocket = serverSocket.accept();
 
-                    // Bağlantı noktasını alarak hangi sensörden veri geldiğini anlayabilirsiniz
-                    int sensorPort = clientSocket.getPort();
-
-                    // İstemciden gelen verileri okuma
                     DataInputStream inputStream = new DataInputStream(clientSocket.getInputStream());
                     int whichSensor = inputStream.readInt();
                     double receivedAciDerece = inputStream.readDouble();
                     int receivedX = inputStream.readInt();
                     int receivedY = inputStream.readInt();
+
                     if (whichSensor == 1) {
-                        System.out.println("Sensor 1'den gelen açı: " + receivedAciDerece);
+                        //System.out.println("Sensor 1'den gelen açı: " + receivedAciDerece);
                         //System.out.println("Sensor 1'in koordinatı (X,Y): (" + receivedX + "," + receivedY + ")");
                         receivedAciDereceSensor1 = receivedAciDerece;
                         receivedXSensor1 = receivedX;
                         receivedYSensor1 = receivedY;
                     } else if (whichSensor == 2) {
-                        System.out.println("Sensor 2'den gelen açı: " + receivedAciDerece);
+                        //System.out.println("Sensor 2'den gelen açı: " + receivedAciDerece);
                         //System.out.println("Sensor 2'nin koordinatı (X,Y): (" + receivedX + "," + receivedY + ")");
                         receivedAciDereceSensor2 = receivedAciDerece;
                         receivedXSensor2 = receivedX;
@@ -70,11 +67,11 @@ public class CommandBase {
         public static void findTargetLocation(double aciDereceSensor1, double aciDereceSensor2, double sensor1X,
                                               double sensor1Y, double sensor2X)
         {
-            // Sensörlerin hedefe olan doğrultularını hesaplayın
+            // Sensörlerin hedefe olan y+ açılarını radyan cinse çevirir
             double aciRadyanSensor1 = Math.toRadians(aciDereceSensor1);
             double aciRadyanSensor2 = Math.toRadians(aciDereceSensor2);
 
-            // Hedefin koordinatlarını hesaplayın
+            // Hedefin koordinatlarını hesaplar
             double hedefX = (sensor1X * Math.tan(aciRadyanSensor2) - sensor2X * Math.tan(aciRadyanSensor1)) /
                     (Math.tan(aciRadyanSensor2) - Math.tan(aciRadyanSensor1));
             double hedefY = sensor1Y + (hedefX - sensor1X) * Math.tan(aciRadyanSensor1);

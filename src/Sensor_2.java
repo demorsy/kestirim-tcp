@@ -11,7 +11,7 @@ public class Sensor_2 {
 
         try {
             ServerSocket serverSocket = new ServerSocket(serverPort);
-            System.out.println("Sunucu dinleniyor...");
+            System.out.println("Sensor 2 dinliyor...");
 
             while (true) {
                 Socket clientSocket = serverSocket.accept();
@@ -27,10 +27,10 @@ public class Sensor_2 {
                 double aciDereceSensor = hesaplaKerterizAci(x, y, receivedX, receivedY);
                 System.out.println("Sensör 2 için hedefin kerterizi y+ ekseninden saat yönündeki açısı " + aciDereceSensor);
 
-                // Command Base'e hesaplanan veriyi gönder
+                // Command Base'e hesaplanan veriyi gönderir
                 Socket commandBaseSocket = new Socket(serverAddress, commandBasePort);
                 DataOutputStream commandBaseOutputStream = new DataOutputStream(commandBaseSocket.getOutputStream());
-                commandBaseOutputStream.writeInt(2); //sensor1 olduğunu belli eder.
+                commandBaseOutputStream.writeInt(2); // sensor2 olduğunu belli eder.
                 commandBaseOutputStream.writeDouble(aciDereceSensor);
                 commandBaseOutputStream.writeInt(x); // Sensörün x koordinatı
                 commandBaseOutputStream.writeInt(y); // Sensörün y koordinatı

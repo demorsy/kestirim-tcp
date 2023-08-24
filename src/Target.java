@@ -10,18 +10,41 @@ public class Target {
         int x = -1;
         int y = 5;
 
-        // Hedefin hareket hızı ve bekleme süresi (ms cinsinden)
-        int moveSpeed = 10; // Örneğin, her 10ms'de bir birim hareket
-        int sleepTime = 5000; // 5 saniye bekleme
+        // Hedef 1000x1000 haritada hareket etmelidir.
+        // Bu yüzden yönlendirmeyi bu şekilde yapıyoruz.
+        boolean xDirectionPositive = true;
+        boolean yDirectionPositive = true;
+
+        // bekleme süresi (ms cinsinden)
+        int sleepTime = 3000; // 3 saniye bekleme
+        int moveSpeed = 1; // hareket hızı
 
 
         try {
 
             while (true){
-                x+=1;
-                y+=1;
-                //x+=moveSpeed;
-                //y+= moveSpeed-5;
+
+                // Hareket yönüne göre yer değiştirme
+                if (xDirectionPositive) {
+                    x += moveSpeed;
+                } else {
+                    x -= moveSpeed;
+                }
+
+                if (yDirectionPositive) {
+                    y += moveSpeed;
+                } else {
+                    y -= moveSpeed;
+                }
+
+                // Koordinatların sınırlarını kontrol ediyor ve yönü değiştiriyor
+                if (x >= 1000 || x <= -1000) {
+                    xDirectionPositive = !xDirectionPositive;
+                }
+                if (y >= 1000 || y <= -1000) {
+                    yDirectionPositive = !yDirectionPositive;
+                }
+
                 System.out.println("Hedefin güncel kesin konumu: (" + x + "," + y + ")");
 
                 try {
@@ -29,7 +52,7 @@ public class Target {
                     OutputStream outputStreamSensor1 = socketSensor1.getOutputStream();
                     DataOutputStream dataOutputStreamSensor1 = new DataOutputStream(outputStreamSensor1);
 
-                    // Sensor 1'e veriyi gönder
+                    // Sensor 1'e veriyi gönderir
                     dataOutputStreamSensor1.writeInt(x);
                     dataOutputStreamSensor1.writeInt(y);
 
@@ -45,7 +68,7 @@ public class Target {
                     OutputStream outputStreamSensor2 = socketSensor2.getOutputStream();
                     DataOutputStream dataOutputStreamSensor2 = new DataOutputStream(outputStreamSensor2);
 
-                    // Sensor 2'ye veriyi gönder
+                    // Sensor 2'ye veriyi gönderir
                     dataOutputStreamSensor2.writeInt(x);
                     dataOutputStreamSensor2.writeInt(y);
 
